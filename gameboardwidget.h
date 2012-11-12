@@ -23,24 +23,23 @@ public:
     explicit GameBoardWidget(QWidget *parent, BoardMatrix* board, QSize size, quint8 gridSize = 9);
     ~GameBoardWidget();
 
-    enum PieceColor {
-        EMPTY,
-        WHITE,
-        BLACK
-    };
-
     const static char* BoardImagePath;
     const static char* BlackPieceImagePath;
     const static char* WhitePieceImagePath;
 
-    void setPiece(quint8 x, quint8 y, PieceColor color);
+    const int getBoardX() { return m_bx; }
+    const int getBoardY() { return m_by; }
 
 public slots:
     void sizeChanged(QSize size);
 
+signals:
+    void clicked();
+
 protected:
     void paintEvent(QPaintEvent * event);
     void mouseMoveEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e);
 
 private:
     Ui::GameBoardWidget *ui;
@@ -49,7 +48,6 @@ private:
     QImage m_whiteImg;
     QSize m_size;
     QRect m_gridRect;
-//    QPoint m_mousepoint;
     char m_bx;
     char m_by;
     quint8 m_gridSize;

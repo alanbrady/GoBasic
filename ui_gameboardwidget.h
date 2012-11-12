@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gameboardwidget.ui'
 **
-** Created: Mon Jul 9 18:28:00 2012
-**      by: Qt User Interface Compiler version 4.8.1
+** Created: Mon Nov 12 00:45:03 2012
+**      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/

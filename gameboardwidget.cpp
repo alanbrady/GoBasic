@@ -43,10 +43,10 @@ GameBoardWidget::~GameBoardWidget()
     delete ui;
 }
 
-void GameBoardWidget::setPiece(quint8 x, quint8 y, GameBoardWidget::PieceColor color)
-{
+//void GameBoardWidget::setPiece(quint8 x, quint8 y, GameBoardWidget::PieceColor color)
+//{
 
-}
+//}
 
 void GameBoardWidget::paintEvent(QPaintEvent * event) {
     QPainter painter(this);
@@ -69,6 +69,11 @@ void GameBoardWidget::mouseMoveEvent(QMouseEvent *e) {
 //        qDebug() << "bx: " << int(m_bx) << " by: " << int(m_by);
         repaint();
     }
+}
+
+void GameBoardWidget::mousePressEvent(QMouseEvent *e)
+{
+    emit clicked();
 }
 
 void GameBoardWidget::sizeChanged(QSize size) {

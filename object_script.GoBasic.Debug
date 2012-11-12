@@ -1,0 +1,13 @@
+INPUT(
+./debug\main.o
+./debug\gomain.o
+./debug\boardmatrix.o
+./debug\gameboardwidget.o
+./debug\gamelogic.o
+./debug\abstractplayer.o
+./debug\humanplayer.o
+./debug\moc_gomain.o
+./debug\moc_gameboardwidget.o
+./debug\moc_gamelogic.o
+./debug\moc_abstractplayer.o
+);

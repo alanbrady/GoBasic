@@ -9,7 +9,7 @@ class BoardMatrix
 {
 public:
     BoardMatrix(int height, int width);
-    const BoardMatrix& operator=(const BoardMatrix& other);
+//    const BoardMatrix& operator=(const BoardMatrix& other);
 
     enum StateFlag {
         Empty =             0x01,

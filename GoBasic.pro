@@ -15,13 +15,15 @@ SOURCES += main.cpp\
     boardmatrix.cpp \
     gameboardwidget.cpp \
     gamelogic.cpp \
-    abstractplayer.cpp
+    abstractplayer.cpp \
+    humanplayer.cpp
 
 HEADERS  += gomain.h \
     boardmatrix.h \
     gameboardwidget.h \
     gamelogic.h \
-    abstractplayer.h
+    abstractplayer.h \
+    humanplayer.h
 
 FORMS    += gomain.ui \
     gameboardwidget.ui
