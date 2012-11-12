@@ -34,7 +34,6 @@ bool GameLogic::checkCaptures(const BoardMatrix::StateFlag& flag)
                 PieceTable linked;
                 getLinked(j,k, &linked);
                 if (linked.size() > 0) {
-//                    qDebug() << "Linked pieces (" << j << "," << k << "): " << linked;
                     if (!piecesHaveLiberties(linked)) {
                         removePieces(linked);
                         piecesCapped = true;
@@ -44,14 +43,12 @@ bool GameLogic::checkCaptures(const BoardMatrix::StateFlag& flag)
             }
         }
     }
-    qDebug() << "Capped:" << piecesCapped;
     return piecesCapped;
 }
 
 bool GameLogic::playerMove(int x, int y)
 // Check if a given move is legal, if so switch the active player
 {
-    qDebug() << "Player move: " << m_activePlayer->color();
     if (isLegalMove(x, y)) {
         if (m_activePlayer == m_p1)
             m_activePlayer = m_p2;
@@ -98,6 +95,7 @@ bool GameLogic::piecesHaveLiberties(GameLogic::PieceTable pieces)
         else if (m_board->value(px, py+1) == BoardMatrix::Empty)
             return true;
     }
+    qDebug() << "No liberties. P:" << m_activePlayer->color();
     return false;
 }
 
@@ -132,25 +130,11 @@ bool GameLogic::isLegalMove(const int x, const int y)
         m_board->setValue(x,y, pcol);
         getLinked(x,y,&linked);
         if (piecesHaveLiberties(linked)) {
-            qDebug() << "Linked: " << linked;
             checkCaptures(ocol);
             return true;
         } else if (checkCaptures(ocol)) {
             return true;
         }
-//        } else if (pcol == AbstractPlayer::WHITE){
-//            m_board->setValue(x,y, BoardMatrix::WhitePiece);
-//            getLinked(x,y,&linked);
-//            if (piecesHaveLiberties(linked)) {
-//                qDebug() << "Linked: " << linked;
-//                checkCaptures(BoardMatrix::BlackPiece);
-//                return true;
-//            } else if (checkCaptures(BoardMatrix::BlackPiece)) {
-//                return true;
-//            }
-//        }
-        qDebug() << "No liberties or captures";
-        //(*m_board) = oldBoard;
         m_board->setValue(x,y, BoardMatrix::Empty);
         return false;
     } else return false;

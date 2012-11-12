@@ -43,11 +43,6 @@ GameBoardWidget::~GameBoardWidget()
     delete ui;
 }
 
-//void GameBoardWidget::setPiece(quint8 x, quint8 y, GameBoardWidget::PieceColor color)
-//{
-
-//}
-
 void GameBoardWidget::paintEvent(QPaintEvent * event) {
     QPainter painter(this);
 
@@ -66,7 +61,6 @@ void GameBoardWidget::mouseMoveEvent(QMouseEvent *e) {
     if (bx != m_bx || by != m_by) {
         m_bx = bx;
         m_by = by;
-//        qDebug() << "bx: " << int(m_bx) << " by: " << int(m_by);
         repaint();
     }
 }
@@ -158,7 +152,6 @@ void GameBoardWidget::drawHighlight(QPainter *painter) {
     }
     painter->drawRect(rect2);
 
-//    qDebug() << "r1: " << rect1 << " r2: " << rect2;
 }
 
 const quint32 GameBoardWidget::getGridSpace() const {

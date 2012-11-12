@@ -28,5 +28,6 @@ HEADERS  += gomain.h \
 FORMS    += gomain.ui \
     gameboardwidget.ui
 
-OTHER_FILES +=
+OTHER_FILES += \
+    README.md
 
