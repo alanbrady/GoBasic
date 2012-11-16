@@ -11,10 +11,11 @@ const char* GameBoardWidget::BoardImagePath = "./wood.jpg";
 const char* GameBoardWidget::WhitePieceImagePath = "./white.png";
 const char* GameBoardWidget::BlackPieceImagePath = "./black.png";
 
-GameBoardWidget::GameBoardWidget(QWidget *parent, BoardMatrix *board, QSize size, quint8 gridSize) :
+// TODO: Completely refactor how the drawing is done for this widget, it's definitely not being done correctly
+
+GameBoardWidget::GameBoardWidget(QWidget *parent, BoardMatrix *board, quint8 gridSize) :
     QWidget(parent),
     ui(new Ui::GameBoardWidget),
-    m_size(size),
     m_bx(-1),
     m_by(-1),
     m_gridSize(gridSize),
@@ -24,7 +25,7 @@ GameBoardWidget::GameBoardWidget(QWidget *parent, BoardMatrix *board, QSize size
     m_highlightWidth(6)
 {
 
-    ui->setupUi(this);
+    this->setMinimumSize(550,550);
     if (!m_woodImg.load(BoardImagePath))
         QMessageBox::warning(this, "Unable to load!", "Unable to load board!", QMessageBox::Ok);
 
@@ -45,6 +46,7 @@ GameBoardWidget::~GameBoardWidget()
 
 void GameBoardWidget::paintEvent(QPaintEvent * event) {
     QPainter painter(this);
+    this->makeGridRect();
 
     drawBoard(&painter);
     drawGrid(&painter);
@@ -65,23 +67,32 @@ void GameBoardWidget::mouseMoveEvent(QMouseEvent *e) {
     }
 }
 
-void GameBoardWidget::mousePressEvent(QMouseEvent *e)
-{
+void GameBoardWidget::mousePressEvent(QMouseEvent *e) {
     emit clicked();
 }
 
-void GameBoardWidget::sizeChanged(QSize size) {
-    m_size = size - QSize(m_boardBorder*2,m_boardBorder*2);
-    this->resize(size - QSize(0, 0));
-    makeGridRect();
+QSize GameBoardWidget::sizeHint() const {
+    return QSize(550, 550);
 }
 
+//void GameBoardWidget::sizeChanged(QSize size) {
+//    size = this->size();
+//    qDebug() << size;
+
+//    m_size = size - QSize(m_boardBorder*2,m_boardBorder*2);
+//    m_size.setHeight(m_size.height()-50);
+//    m_size.setWidth(m_size.width()-50);
+//    this->resize(size - QSize(0, 0));
+//    makeGridRect();
+//}
+
 void GameBoardWidget::drawBoard(QPainter *painter) {
-    quint32 k = m_size.height() > m_size.width() ? m_size.height() : m_size.width();
-    QImage scaledboard = m_woodImg.scaledToHeight(k);
-    painter->drawImage(m_boardBorder, m_boardBorder , scaledboard, 0, 0, m_size.width(), m_size.height());
+    int adjwidth = this->size().width()-(m_boardBorder*2);
+    QImage scaledboard = m_woodImg.scaledToHeight(adjwidth);
+    qDebug() << scaledboard.size();
+    painter->drawImage(m_boardBorder, m_boardBorder , scaledboard, 0, 0, adjwidth, adjwidth);
     painter->setPen(QPen(QColor(0,0,0,200), 2));
-    painter->drawRect(m_boardBorder, m_boardBorder, m_size.width(), m_size.height());
+    painter->drawRect(m_boardBorder, m_boardBorder, adjwidth, adjwidth);
 
 }
 
@@ -136,22 +147,25 @@ void GameBoardWidget::drawHighlight(QPainter *painter) {
     painter->setBrush(QColor(200,0,0,100));
     painter->setPen(QColor(200,0,0,100));
 
-    QRect rect1(m_gridRect.x()+(gridSpace*m_bx)-(m_highlightWidth/2),
-                m_gridRect.y(), m_highlightWidth, m_gridRect.height());
-    if (rect1.x() < m_gridRect.x()) {
-        rect1.setX(m_gridRect.x()+1);
-        rect1.setWidth(m_highlightWidth);
+    if (gridSpace*m_bx < gridSpace*m_gridSize) {
+        QRect vrect(m_gridRect.x()+(gridSpace*m_bx)-(m_highlightWidth/2),
+                    m_gridRect.y(), m_highlightWidth, m_gridRect.height());
+        if (vrect.x() < m_gridRect.x()) {
+            vrect.setX(m_gridRect.x()+1);
+            vrect.setWidth(m_highlightWidth);
+        }
+        painter->drawRect(vrect);
     }
-    painter->drawRect(rect1);
 
-    QRect rect2(m_gridRect.x(), m_gridRect.y()+(gridSpace*m_by)-(m_highlightWidth/2),
-                m_gridRect.width(), m_highlightWidth);
-    if (rect2.y() < m_gridRect.y()) {
-        rect2.setY(m_gridRect.y()+1);
-        rect2.setHeight(m_highlightWidth);
+    if (gridSpace*m_by < gridSpace*m_gridSize) {
+        QRect hrect(m_gridRect.x(), m_gridRect.y()+(gridSpace*m_by)-(m_highlightWidth/2),
+                    m_gridRect.width(), m_highlightWidth);
+        if (hrect.y() < m_gridRect.y()) {
+            hrect.setY(m_gridRect.y()+1);
+            hrect.setHeight(m_highlightWidth);
+        }
+        painter->drawRect(hrect);
     }
-    painter->drawRect(rect2);
-
 }
 
 const quint32 GameBoardWidget::getGridSpace() const {
@@ -160,7 +174,7 @@ const quint32 GameBoardWidget::getGridSpace() const {
 }
 
 void GameBoardWidget::makeGridRect() {
-    int dim = (m_size.width() - (m_boardBorder*2));
+    int dim = (this->size().width() - (m_boardBorder*2));
     int difMod = dim % (m_gridSize-1);
     dim = dim - difMod - m_boardBorder - m_gridBorder;
     m_gridRect = QRect(m_boardBorder+m_gridBorder+(difMod/2),m_boardBorder+m_gridBorder+(difMod/2), dim, dim);

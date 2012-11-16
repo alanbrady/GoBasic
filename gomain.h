@@ -1,9 +1,10 @@
 #ifndef GOMAIN_H
 #define GOMAIN_H
 
+#include <QWidget>
 #include <QMainWindow>
-#include <QHBoxLayout>
 #include <QMouseEvent>
+#include <QHBoxLayout>
 #include "gameboardwidget.h"
 #include "boardmatrix.h"
 #include "gamelogic.h"
@@ -25,12 +26,13 @@ public slots:
     void boardClicked();
 
 protected:
-    void resizeEvent(QResizeEvent * newSize);
+//    void resizeEvent(QResizeEvent * newSize);
 
 private:
     Ui::GoMain *ui;
-    GameBoardWidget* gb;
-    QHBoxLayout *mainLayout;
+    QWidget* centralWidget;
+    QHBoxLayout* mainLayout;
+    GameBoardWidget *gb;
     BoardMatrix *board;
     GameLogic *logic;
     HumanPlayer *p1;

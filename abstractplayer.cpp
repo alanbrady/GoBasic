@@ -2,13 +2,13 @@
 #include "gamelogic.h"
 
 
-AbstractPlayer::AbstractPlayer(GameLogic *logic, Color color, QObject *parent) :
+AbstractPlayer::AbstractPlayer(QString name, GameLogic *logic, Color color, QObject *parent) :
     QObject(parent),
     m_logic(logic),
     m_color(color),
     m_isActive(false),
     m_points(0),
-    m_name("SomeName")
+    m_name(name)
 {}
 
 void AbstractPlayer::startTurn() {

@@ -15,7 +15,7 @@ class GameLogic : public QWidget
     Q_OBJECT
 
 public:
-    GameLogic(BoardMatrix* board, AbstractPlayer* p1, AbstractPlayer* p2);
+    GameLogic(BoardMatrix* board, AbstractPlayer* p1, AbstractPlayer* p2, QWidget* parent = 0);
 
     enum Status {
         RUNNING,

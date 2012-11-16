@@ -2,7 +2,8 @@
 #include <QDebug>
 #include "abstractplayer.h"
 
-GameLogic::GameLogic(BoardMatrix *board, AbstractPlayer *p1, AbstractPlayer *p2) :
+GameLogic::GameLogic(BoardMatrix *board, AbstractPlayer *p1, AbstractPlayer *p2, QWidget *parent) :
+    QWidget(parent),
     m_board(board),
     m_p1(p1),
     m_p2(p2)

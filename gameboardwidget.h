@@ -20,7 +20,7 @@ class GameBoardWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit GameBoardWidget(QWidget *parent, BoardMatrix* board, QSize size, quint8 gridSize = 9);
+    explicit GameBoardWidget(QWidget *parent, BoardMatrix* board, quint8 gridSize);
     ~GameBoardWidget();
 
     const static char* BoardImagePath;
@@ -30,8 +30,8 @@ public:
     const int getBoardX() { return m_bx; }
     const int getBoardY() { return m_by; }
 
-public slots:
-    void sizeChanged(QSize size);
+//public slots:
+//    void sizeChanged(QSize size);
 
 signals:
     void clicked();
@@ -40,13 +40,15 @@ protected:
     void paintEvent(QPaintEvent * event);
     void mouseMoveEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
+    QSize sizeHint() const;
+//    int heightForWidth(int w) const;
 
 private:
     Ui::GameBoardWidget *ui;
     QImage m_woodImg;
     QImage m_blackImg;
     QImage m_whiteImg;
-    QSize m_size;
+//    QSize m_size;
     QRect m_gridRect;
     char m_bx;
     char m_by;

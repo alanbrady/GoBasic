@@ -1,8 +1,8 @@
-GoBasic
+**GoBasic**
 
 ==============
 
-Go is one of the oldest games in human history and remains one of the most popular is east asia.
+*Go is one of the oldest games in human history and remains one of the most popular is east asia.*
 
 --------------
 

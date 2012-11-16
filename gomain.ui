@@ -6,25 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>686</width>
-    <height>640</height>
+    <width>409</width>
+    <height>312</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GoMain</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-  </widget>
+  <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>686</width>
+     <width>409</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

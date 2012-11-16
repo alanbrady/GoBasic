@@ -14,7 +14,7 @@ public:
         BLACK
     };
 
-    AbstractPlayer(GameLogic* logic, Color color, QObject* parent = 0);
+    AbstractPlayer(QString name, GameLogic* logic, Color color, QObject* parent = 0);
     virtual ~AbstractPlayer() {}
 
     const Color color() const { return m_color; }
