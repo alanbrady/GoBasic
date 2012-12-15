@@ -8,7 +8,7 @@ class HumanPlayer : public AbstractPlayer
 public:
     HumanPlayer(QString name, GameLogic* logic, Color color, QObject* parent = 0);
 
-    const bool isHuman() const { return true; }
+    bool isHuman() const { return true; }
     void doTurn() {}
 
 };

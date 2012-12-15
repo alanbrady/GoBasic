@@ -23,7 +23,7 @@ public:
     const QVector<StateFlag>& operator[](const quint8 x) const;
 
     const QSize getSize() const { return m_size; }
-    const StateFlag value(quint8 x, quint8 y) const { return m_matrix.value(x).value(y); }
+    StateFlag value(quint8 x, quint8 y) const { return m_matrix.value(x).value(y); }
     void setValue(quint8 x, quint8 y, const StateFlag f);
     void clearBoard() { m_matrix.clear(); }
 

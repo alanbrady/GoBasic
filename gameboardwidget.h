@@ -27,8 +27,8 @@ public:
     const static char* BlackPieceImagePath;
     const static char* WhitePieceImagePath;
 
-    const int getBoardX() { return m_bx; }
-    const int getBoardY() { return m_by; }
+    int getBoardX() const { return m_bx; }
+    int getBoardY() const { return m_by; }
 
 //public slots:
 //    void sizeChanged(QSize size);
@@ -37,9 +37,9 @@ signals:
     void clicked();
 
 protected:
-    void paintEvent(QPaintEvent * event);
+    void paintEvent(QPaintEvent *);
     void mouseMoveEvent(QMouseEvent *e);
-    void mousePressEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *);
     QSize sizeHint() const;
 //    int heightForWidth(int w) const;
 
@@ -62,7 +62,7 @@ private:
     void drawGrid(QPainter* painter);
     void drawPieces(QPainter* painter);
     void drawHighlight(QPainter* painter);
-    const quint32 getGridSpace() const;
+    quint32 getGridSpace() const;
     void makeGridRect();
 };
 

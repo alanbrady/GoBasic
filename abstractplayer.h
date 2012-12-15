@@ -17,11 +17,11 @@ public:
     AbstractPlayer(QString name, GameLogic* logic, Color color, QObject* parent = 0);
     virtual ~AbstractPlayer() {}
 
-    const Color color() const { return m_color; }
+    Color color() const { return m_color; }
     void startTurn();
 
     virtual void doTurn() = 0;
-    virtual const bool isHuman() const { return false; }
+    virtual bool isHuman() const { return false; }
 
 public slots:
     bool doMove(int x, int y);

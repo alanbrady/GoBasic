@@ -44,7 +44,7 @@ GameBoardWidget::~GameBoardWidget()
     delete ui;
 }
 
-void GameBoardWidget::paintEvent(QPaintEvent * event) {
+void GameBoardWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     this->makeGridRect();
 
@@ -67,7 +67,7 @@ void GameBoardWidget::mouseMoveEvent(QMouseEvent *e) {
     }
 }
 
-void GameBoardWidget::mousePressEvent(QMouseEvent *e) {
+void GameBoardWidget::mousePressEvent(QMouseEvent *) {
     emit clicked();
 }
 
@@ -89,7 +89,7 @@ QSize GameBoardWidget::sizeHint() const {
 void GameBoardWidget::drawBoard(QPainter *painter) {
     int adjwidth = this->size().width()-(m_boardBorder*2);
     QImage scaledboard = m_woodImg.scaledToHeight(adjwidth);
-    qDebug() << scaledboard.size();
+//    qDebug() << scaledboard.size();
     painter->drawImage(m_boardBorder, m_boardBorder , scaledboard, 0, 0, adjwidth, adjwidth);
     painter->setPen(QPen(QColor(0,0,0,200), 2));
     painter->drawRect(m_boardBorder, m_boardBorder, adjwidth, adjwidth);
@@ -168,7 +168,7 @@ void GameBoardWidget::drawHighlight(QPainter *painter) {
     }
 }
 
-const quint32 GameBoardWidget::getGridSpace() const {
+quint32 GameBoardWidget::getGridSpace() const {
     quint32 s = m_gridRect.width() / (m_gridSize-1);
     return s;
 }
