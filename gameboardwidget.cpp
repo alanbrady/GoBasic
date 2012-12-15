@@ -21,11 +21,11 @@ GameBoardWidget::GameBoardWidget(QWidget *parent, BoardMatrix *board, quint8 gri
     m_gridSize(gridSize),
     m_board(board),
     m_boardBorder(8),
-    m_gridBorder(30),
+    m_gridBorder(40),
     m_highlightWidth(6)
 {
 
-    this->setMinimumSize(550,550);
+//    this->setMinimumSize(550,550);
     if (!m_woodImg.load(BoardImagePath))
         QMessageBox::warning(this, "Unable to load!", "Unable to load board!", QMessageBox::Ok);
 
@@ -50,8 +50,8 @@ void GameBoardWidget::paintEvent(QPaintEvent *) {
 
     drawBoard(&painter);
     drawGrid(&painter);
-    drawPieces(&painter);
     drawHighlight(&painter);
+    drawPieces(&painter);
 }
 
 void GameBoardWidget::mouseMoveEvent(QMouseEvent *e) {
@@ -87,12 +87,16 @@ QSize GameBoardWidget::sizeHint() const {
 //}
 
 void GameBoardWidget::drawBoard(QPainter *painter) {
-    int adjwidth = this->size().width()-(m_boardBorder*2);
-    QImage scaledboard = m_woodImg.scaledToHeight(adjwidth);
+    int w = this->size().width();
+    int h = this->size().height();
+    int lim = w > h ? h : w;
+//    qDebug() << "lim: " << lim;
+    lim = lim - (m_boardBorder*2);
+    QImage scaledboard = m_woodImg.scaledToHeight(lim);
 //    qDebug() << scaledboard.size();
-    painter->drawImage(m_boardBorder, m_boardBorder , scaledboard, 0, 0, adjwidth, adjwidth);
+    painter->drawImage(m_boardBorder, m_boardBorder , scaledboard, 0, 0, lim, lim);
     painter->setPen(QPen(QColor(0,0,0,200), 2));
-    painter->drawRect(m_boardBorder, m_boardBorder, adjwidth, adjwidth);
+    painter->drawRect(m_boardBorder, m_boardBorder, lim, lim);
 
 }
 
@@ -121,8 +125,11 @@ void GameBoardWidget::drawGrid(QPainter *painter) {
 
 void GameBoardWidget::drawPieces(QPainter *painter) {
     const quint32 gridSpace = getGridSpace();
-    const quint32 imgWidth = m_blackImg.size().width();
-    const quint32 imgHeight = m_blackImg.size().height();
+    const quint32 psize = gridSpace * 0.75;
+//    const quint32 imgWidth = m_blackImg.size().width();
+//    const quint32 imgHeight = m_blackImg.size().height();
+    QImage scaled;
+    const quint32 imgWidth = psize, imgHeight = psize;
     for (int j = 0; j < m_board->getSize().height(); j++) {
         for (int k = 0; k < m_board->getSize().width(); k++) {
             const BoardMatrix::StateFlag flag = m_board->value(j, k);
@@ -130,10 +137,12 @@ void GameBoardWidget::drawPieces(QPainter *painter) {
             int y = ((gridSpace*k)-(imgHeight/2))+m_gridRect.y();
             switch(flag) {
                 case BoardMatrix::BlackPiece:
-                    painter->drawImage(x, y, m_blackImg);
+                    scaled = m_blackImg.scaledToHeight(psize, Qt::SmoothTransformation);
+                    painter->drawImage(x, y, scaled);
                     break;
                 case BoardMatrix::WhitePiece:
-                    painter->drawImage(x, y, m_whiteImg);
+                    scaled = m_whiteImg.scaledToHeight(psize, Qt::SmoothTransformation);
+                    painter->drawImage(x, y, scaled);
                     break;
                 default:
                     break;
@@ -174,8 +183,13 @@ quint32 GameBoardWidget::getGridSpace() const {
 }
 
 void GameBoardWidget::makeGridRect() {
-    int dim = (this->size().width() - (m_boardBorder*2));
-    int difMod = dim % (m_gridSize-1);
-    dim = dim - difMod - m_boardBorder - m_gridBorder;
-    m_gridRect = QRect(m_boardBorder+m_gridBorder+(difMod/2),m_boardBorder+m_gridBorder+(difMod/2), dim, dim);
+    int w = this->size().width();
+    int h = this->size().height();
+    int lim = w > h ? h : w;
+    int dim = lim;
+//    int difMod = dim % (m_gridSize-1);
+    dim = dim - (m_gridBorder*2);
+//    qDebug() << "dim: " << dim << " difMod: " << difMod << " bborder: " << m_boardBorder;
+    m_gridRect = QRect(m_gridBorder,m_gridBorder, dim, dim);
+//    qDebug() << m_gridRect;
 }
