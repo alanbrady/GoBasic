@@ -161,3 +161,9 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+# Qt
+moc_*.o
+moc_*.cpp
+ui_*.h
+*.1pre1
