@@ -13,6 +13,10 @@ GoMain::GoMain(QWidget *parent) :
 {
     ui->setupUi(this);
 //    this->setFixedSize(700, 600);
+    QRect geom = this->geometry();
+    geom.setWidth(700);
+    geom.setHeight(500);
+    this->setGeometry(geom);
 
     centralWidget = new QWidget(this);
     mainLayout = new QHBoxLayout;
@@ -25,7 +29,9 @@ GoMain::GoMain(QWidget *parent) :
     logic = new GameLogic(board, p1, p2);
 
     gb = new GameBoardWidget(centralWidget, board, 9);
+    gameui = new GameUI(this);
     mainLayout->addWidget(gb);
+    mainLayout->addWidget(gameui);
 
     connect(gb, SIGNAL(clicked()), this, SLOT(boardClicked()));
 }

@@ -21,7 +21,7 @@ class GameBoardWidget : public QWidget
 
 public:
     explicit GameBoardWidget(QWidget *parent, BoardMatrix* board, quint8 gridSize);
-    ~GameBoardWidget();
+    virtual ~GameBoardWidget();
 
     const static char* BoardImagePath;
     const static char* BlackPieceImagePath;

@@ -96,7 +96,7 @@ bool GameLogic::piecesHaveLiberties(GameLogic::PieceTable pieces)
         else if (m_board->value(px, py+1) == BoardMatrix::Empty)
             return true;
     }
-    qDebug() << "No liberties. P:" << m_activePlayer->color();
+//    qDebug() << "No liberties. P:" << m_activePlayer->color();
     return false;
 }
 

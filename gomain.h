@@ -9,6 +9,7 @@
 #include "boardmatrix.h"
 #include "gamelogic.h"
 #include "humanplayer.h"
+#include "gameui.h"
 
 namespace Ui {
     class GoMain;
@@ -33,6 +34,7 @@ private:
     QWidget* centralWidget;
     QHBoxLayout* mainLayout;
     GameBoardWidget *gb;
+    GameUI *gameui;
     BoardMatrix *board;
     GameLogic *logic;
     HumanPlayer *p1;
