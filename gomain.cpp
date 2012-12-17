@@ -14,6 +14,8 @@ GoMain::GoMain(QWidget *parent) :
     ui->setupUi(this);
 //    this->setFixedSize(700, 600);
     QRect geom = this->geometry();
+    geom.setX(200);
+    geom.setY(200);
     geom.setWidth(700);
     geom.setHeight(500);
     this->setGeometry(geom);
@@ -36,6 +38,7 @@ GoMain::GoMain(QWidget *parent) :
     mainLayout->addWidget(gameui);
 
     connect(gb, SIGNAL(clicked()), this, SLOT(boardClicked()));
+    connect(logic, SIGNAL(playerChanged(AbstractPlayer*)), gameui, SLOT(playerChanged(AbstractPlayer*)));
 }
 
 GoMain::~GoMain()

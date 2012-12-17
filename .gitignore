@@ -167,3 +167,8 @@ pip-log.txt
 moc_*.cpp
 ui_*.h
 *.1pre1
+object_script.*
+
+# Photoshop
+*.psd
+

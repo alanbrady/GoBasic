@@ -31,5 +31,6 @@ FORMS    += gomain.ui \
     gameboardwidget.ui
 
 OTHER_FILES += \
-    README.md
+    README.md \
+    .gitignore
 
