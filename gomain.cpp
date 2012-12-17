@@ -30,6 +30,8 @@ GoMain::GoMain(QWidget *parent) :
 
     gb = new GameBoardWidget(centralWidget, board, 9);
     gameui = new GameUI(this);
+    gameui->setMinimumWidth(300);
+    gameui->setMaximumWidth(300);
     mainLayout->addWidget(gb);
     mainLayout->addWidget(gameui);
 

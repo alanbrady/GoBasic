@@ -8,6 +8,7 @@ GameUI::GameUI(QWidget *parent) :
     QWidget(parent)
 {
     m_background = new QImage(BackgroundImagePath);
+//    this->setMinimumWidth(100);
 }
 
 GameUI::~GameUI() {

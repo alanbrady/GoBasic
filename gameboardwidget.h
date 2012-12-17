@@ -40,8 +40,8 @@ protected:
     void paintEvent(QPaintEvent *);
     void mouseMoveEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *);
-    QSize sizeHint() const;
-//    int heightForWidth(int w) const;
+//    QSize sizeHint() const;
+    int heightForWidth(int w) const { return w; }
 
 private:
     Ui::GameBoardWidget *ui;

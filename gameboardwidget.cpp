@@ -11,8 +11,6 @@ const char* GameBoardWidget::BoardImagePath = "./wood.jpg";
 const char* GameBoardWidget::WhitePieceImagePath = "./white.png";
 const char* GameBoardWidget::BlackPieceImagePath = "./black.png";
 
-// TODO: Completely refactor how the drawing is done for this widget, it's definitely not being done correctly
-
 GameBoardWidget::GameBoardWidget(QWidget *parent, BoardMatrix *board, quint8 gridSize) :
     QWidget(parent),
     ui(new Ui::GameBoardWidget),
@@ -47,6 +45,7 @@ GameBoardWidget::~GameBoardWidget()
 void GameBoardWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     this->makeGridRect();
+    painter.drawRect(0,0,this->size().width()-1, this->size().height()-1);
 
     drawBoard(&painter);
     drawGrid(&painter);
@@ -71,9 +70,9 @@ void GameBoardWidget::mousePressEvent(QMouseEvent *) {
     emit clicked();
 }
 
-QSize GameBoardWidget::sizeHint() const {
-    return QSize(550, 550);
-}
+//QSize GameBoardWidget::sizeHint() const {
+//    return QSize(550, 550);
+//}
 
 //void GameBoardWidget::sizeChanged(QSize size) {
 //    size = this->size();
